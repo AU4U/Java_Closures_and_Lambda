@@ -2,12 +2,14 @@ import java.util.Arrays;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public class Chapter2_10 {
-
-
+public class Listing2_11 {
     public static void main(String[] args) {
         BiFunction<String, String, String> concat = (a, b) -> a + b;
-        greetFolks(whom -> concat.apply("Hello, ",whom));
+        greetFolks(applyPartial(concat, "Hello, "));
+    }
+
+    public static <T, U, V> Function<U, V> applyPartial(BiFunction<T, U, V> bif, T firstArgument) {
+        return u -> bif.apply(firstArgument, u);
     }
 
     public static void greetFolks(Function<String, String> greeter) {
@@ -16,4 +18,3 @@ public class Chapter2_10 {
         }
     }
 }
-
